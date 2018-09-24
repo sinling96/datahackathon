@@ -1,0 +1,332 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Careful Resource Planning</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  </head>
+  <body>
+    <div class="section">
+      <div class="container">
+        <div class="column is-8 is-offset-2"
+        <div class="columns">
+          <div class="column">
+            <h2 class="title">Linear Regression Model</h2>
+
+            <div class="field">
+              <label class="label">Population Density</label>
+              <div class="control">
+                <input id="pd" class="input" type="integer" placeholder="Population Density">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Medicine Advice</label>
+              <div class="control">
+                <div class="select">
+                  <select id="ma">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Domisiliari</label>
+              <div class="control">
+                <div class="select">
+                  <select id="d">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Extended Hours</label>
+              <div class="control">
+                <div class="select">
+                  <select id="eh">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Diabetes Medication Therapy ADHE</label>
+              <div class="control">
+                <div class="select">
+                  <select id="dmta">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Family Medicine Specialist</label>
+              <div class="control">
+                <div class="select">
+                  <select id="fms">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Location</label>
+              <div class="control">
+                <div class="select">
+                  <select id="l">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Radiology</label>
+              <div class="control">
+                <div class="select">
+                  <select id="r">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">LIS</label>
+              <div class="control">
+                <div class="select">
+                  <select id="lis">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="control">
+              <button class="button is-info" id="calculate">Calculate</button>
+            </div>
+          </div>
+
+          <div class="column">
+            <h1 class="title">Result</h1>
+            <h3 class="subtitle" id="resultOne"></h3>
+          </div>
+
+        <hr>
+
+        <div class="columns">
+          <div class="column">
+            <h2 class="title">Decision Tree</h2>
+            <div class="field">
+              <label class="label">Population Density</label>
+              <div class="control">
+                <input id="pd1" class="input" type="integer" placeholder="Population Density">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Medicine Advice</label>
+              <div class="control">
+                <div class="select">
+                  <select id="ma1">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Domisiliari</label>
+              <div class="control">
+                <div class="select">
+                  <select id="d1">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Diabetes Medication Therapy ADHE</label>
+              <div class="control">
+                <div class="select">
+                  <select id="dmta1">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Family Medicine Specialist</label>
+              <div class="control">
+                <div class="select">
+                  <select id="fms1">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="control">
+              <button class="button is-info" id="decision">Calculate</button>
+            </div>
+          </div>
+          <div class="column">
+            <h1 class="title">Result</h1>
+            <h3 class="subtitle" id="resultTwo"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var button = document.getElementById("calculate")
+    button.addEventListener("click", calculate)
+
+    var button2 = document.getElementById("decision")
+    button2.addEventListener("click", decision)
+
+    function isZeroOrOne(answer) {
+      if (answer === "Yes") {
+        return 1
+      } else {
+        return 0
+      }
+    }
+
+    function calculate() {
+      var pd = document.getElementById("pd")
+      var ma = document.getElementById("ma")
+      var d = document.getElementById("d")
+      var eh = document.getElementById("eh")
+      var dmta = document.getElementById("dmta")
+      var fms = document.getElementById("fms")
+      var l = document.getElementById("l")
+      var r = document.getElementById("r")
+      var lis = document.getElementById("lis")
+
+      var result = document.getElementById("resultOne")
+
+      pd = parseFloat(pd.value)
+      ma = isZeroOrOne(ma.value)
+      d = isZeroOrOne(d.value)
+      eh = isZeroOrOne(eh.value)
+      dmta = isZeroOrOne(dmta.value)
+      fms = isZeroOrOne(fms.value)
+      l = isZeroOrOne(l.value)
+      r = isZeroOrOne(r.value)
+      lis = isZeroOrOne(lis.value)
+
+      var y = 32.69 + 0.02 * pd + 46.35 * ma + 119.70 * d + 302.40 * eh + 88.10 * dmta + 94.16 * fms + 74.35 *l + 42.60 * r + 117.12 * lis
+      result.innerHTML = y
+    }
+
+    function node3(ma) {
+      if (ma == 0) {
+        return ["Low", 96]
+      } else {
+        return []
+      }
+    }
+
+    function node9(ma, fms, dmta) {
+      if (ma == 1 && fms == 1 && dmta == 0) {
+        return ["Medium", 76]
+      } else {
+        return []
+      }
+    }
+
+    function node11(pd, ma, fms) {
+      console.log(pd, ma, fms)
+      if (pd >= 702.36 && ma == 1 && fms == 0) {
+        return ["Medium", 88]
+      } else {
+        return []
+      }
+    }
+
+    function node16(pd, ma, fms, dmta) {
+      if (pd < 1069.56 && ma == 1 && fms == 1 && dmta == 1) {
+        return ["Medium", 63]
+      }
+      return []
+    }
+
+    function node17(pd, ma, fms, dmta) {
+      if (pd >= 1069.56 && ma == 1 && fms == 1 && dmta == 1) {
+        return ["High", 88]
+      }
+      return []
+    }
+
+    function node21(pd, ma, fms, d) {
+      if (pd < 702.36 && ma == 1 && fms == 0 && d == 1) {
+        return ["Medium", 43]
+      }
+      return []
+    }
+
+    function node32(pd, ma, fms, d, dmta)  {
+      if (pd < 702.36 && ma == 1 && fms == 0 && d == 0 && dmta == 1) {
+        return ["Medium", 59]
+      }
+      return []
+    }
+
+    function node33(pd, ma, fms, d, dmta) {
+      if (pd < 702.36 && ma == 1 && fms == 0 && d == 0 && dmta == 0) {
+        return ["Low", 68]
+      }
+      return []
+    }
+
+    function decision() {
+      var pd = document.getElementById("pd1")
+      var ma = document.getElementById("ma1")
+      var d = document.getElementById("d1")
+      var dmta = document.getElementById("dmta1")
+      var fms = document.getElementById("fms1")
+
+      pd = parseFloat(pd.value)
+      ma = isZeroOrOne(ma.value)
+      d = isZeroOrOne(d.value)
+      dmta = isZeroOrOne(dmta.value)
+      fms = isZeroOrOne(fms.value)
+
+      var result = node3(ma)
+
+      if (result.length == 0) {
+        result = node9(ma, fms, dmta)
+      }
+      if (result.length == 0) {
+        result = node11(pd, ma, fms)
+      }
+      if (result.length == 0) {
+        result = node16(pd, ma, fms, dmta)
+      }
+      if (result.length == 0) {
+        result = node17(pd, ma, fms, dmta)
+      }
+      if (result.length == 0) {
+        result = node21(pd, ma, fms, d)
+      }
+      if (result.length == 0) {
+        result = node32(pd, ma, fms, d, dmta)
+      }
+      if (result.length == 0) {
+        result = node33(pd, ma, fms, d, dmta)
+      }
+
+      var display = document.getElementById("resultTwo")
+      display.innerHTML = result.join(": ") + "%"
+    }
+  </script>
+
+</body>
+</html>
